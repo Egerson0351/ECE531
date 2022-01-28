@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Ece531 Lab1A
-# Generated: Fri Jan 28 11:10:24 2022
+# Generated: Fri Jan 28 12:32:25 2022
 ##################################################
 
 from distutils.version import StrictVersion
@@ -73,27 +73,27 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         self._sample_rate_range = Range(1000, 40000, 200, 10000, 200)
         self._sample_rate_win = RangeWidget(self._sample_rate_range, self.set_sample_rate, "sample_rate", "counter_slider", float)
         self.top_grid_layout.addWidget(self._sample_rate_win)
-        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
+        self.qtgui_time_sink_x_1 = qtgui.time_sink_f(
         	1024, #size
-        	10000, #samp_rate
+        	sample_rate, #samp_rate
         	"", #name
         	1 #number of inputs
         )
-        self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
+        self.qtgui_time_sink_x_1.set_update_time(0.10)
+        self.qtgui_time_sink_x_1.set_y_axis(-1, 1)
 
-        self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
+        self.qtgui_time_sink_x_1.set_y_label('Amplitude', "")
 
-        self.qtgui_time_sink_x_0.enable_tags(-1, True)
-        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0.enable_grid(False)
-        self.qtgui_time_sink_x_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0.enable_stem_plot(False)
+        self.qtgui_time_sink_x_1.enable_tags(-1, True)
+        self.qtgui_time_sink_x_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_1.enable_autoscale(False)
+        self.qtgui_time_sink_x_1.enable_grid(False)
+        self.qtgui_time_sink_x_1.enable_axis_labels(True)
+        self.qtgui_time_sink_x_1.enable_control_panel(False)
+        self.qtgui_time_sink_x_1.enable_stem_plot(False)
 
         if not True:
-          self.qtgui_time_sink_x_0.disable_legend()
+          self.qtgui_time_sink_x_1.disable_legend()
 
         labels = ['', '', '', '', '',
                   '', '', '', '', '']
@@ -110,17 +110,17 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_time_sink_x_1.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
+                self.qtgui_time_sink_x_1.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_1.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_1.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_1.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_1.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_1.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_win)
+        self._qtgui_time_sink_x_1_win = sip.wrapinstance(self.qtgui_time_sink_x_1.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_1_win)
         self.qtgui_tab_widget_0 = Qt.QTabWidget()
         self.qtgui_tab_widget_0_widget_0 = Qt.QWidget()
         self.qtgui_tab_widget_0_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.qtgui_tab_widget_0_widget_0)
@@ -177,7 +177,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, freq,True)
-        self.analog_sig_source_x_0 = analog.sig_source_f(10000, analog.GR_SIN_WAVE, 2000, 1, 0)
+        self.analog_sig_source_x_0 = analog.sig_source_f(sample_rate, analog.GR_SIN_WAVE, 2000, 1, 0)
 
 
 
@@ -186,7 +186,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.analog_sig_source_x_0, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_throttle_0, 0), (self.qtgui_freq_sink_x_0, 0))
-        self.connect((self.blocks_throttle_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.blocks_throttle_0, 0), (self.qtgui_time_sink_x_1, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "ECE531_Lab1a")
@@ -198,6 +198,8 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
     def set_sample_rate(self, sample_rate):
         self.sample_rate = sample_rate
+        self.qtgui_time_sink_x_1.set_samp_rate(self.sample_rate)
+        self.analog_sig_source_x_0.set_sampling_freq(self.sample_rate)
 
     def get_freq(self):
         return self.freq
