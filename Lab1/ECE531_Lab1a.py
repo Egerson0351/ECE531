@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Ece531 Lab1A
-# Generated: Fri Jan 28 12:32:25 2022
+# Generated: Fri Jan 28 13:33:32 2022
 ##################################################
 
 from distutils.version import StrictVersion
@@ -70,7 +70,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self._sample_rate_range = Range(1000, 40000, 200, 10000, 200)
+        self._sample_rate_range = Range(1000, 40000, 200, 10000, 1000)
         self._sample_rate_win = RangeWidget(self._sample_rate_range, self.set_sample_rate, "sample_rate", "counter_slider", float)
         self.top_grid_layout.addWidget(self._sample_rate_win)
         self.qtgui_time_sink_x_1 = qtgui.time_sink_f(
@@ -137,7 +137,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
-        	10000, #bw
+        	sample_rate, #bw
         	"", #name
         	1 #number of inputs
         )
@@ -199,6 +199,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
     def set_sample_rate(self, sample_rate):
         self.sample_rate = sample_rate
         self.qtgui_time_sink_x_1.set_samp_rate(self.sample_rate)
+        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.sample_rate)
         self.analog_sig_source_x_0.set_sampling_freq(self.sample_rate)
 
     def get_freq(self):

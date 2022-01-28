@@ -152,7 +152,7 @@
     </param>
     <param>
       <key>min_len</key>
-      <value>200</value>
+      <value>1000</value>
     </param>
     <param>
       <key>orient</key>
@@ -164,7 +164,7 @@
     </param>
     <param>
       <key>step</key>
-      <value>200</value>
+      <value>1000</value>
     </param>
     <param>
       <key>stop</key>
@@ -176,7 +176,7 @@
     </param>
     <param>
       <key>widget</key>
-      <value>counter_slider</value>
+      <value>slider</value>
     </param>
   </block>
   <block>
@@ -313,7 +313,7 @@
     </param>
     <param>
       <key>bw</key>
-      <value>10000</value>
+      <value>sample_rate</value>
     </param>
     <param>
       <key>alias</key>
