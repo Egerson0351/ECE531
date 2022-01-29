@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Ece531 Lab1A
+# Title: Not titled yet
 # GNU Radio version: 3.8.2.0
 
 from distutils.version import StrictVersion
@@ -36,12 +36,12 @@ from gnuradio.qtgui import Range, RangeWidget
 
 from gnuradio import qtgui
 
-class ECE531_Lab1a(gr.top_block, Qt.QWidget):
+class ECE531_Lab1b(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Ece531 Lab1A")
+        gr.top_block.__init__(self, "Not titled yet")
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("Ece531 Lab1A")
+        self.setWindowTitle("Not titled yet")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -59,7 +59,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "ECE531_Lab1a")
+        self.settings = Qt.QSettings("GNU Radio", "ECE531_Lab1b")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -93,7 +93,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         self._sample_rate_range = Range(1000, 40000, 1000, 10000, 1000)
         self._sample_rate_win = RangeWidget(self._sample_rate_range, self.set_sample_rate, 'sample_rate', "counter_slider", float)
         self.top_grid_layout.addWidget(self._sample_rate_win)
-        self.qtgui_time_sink_x_1 = qtgui.time_sink_f(
+        self.qtgui_time_sink_x_1 = qtgui.time_sink_c(
             1024, #size
             sample_rate, #samp_rate
             "", #name
@@ -127,9 +127,12 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
             -1, -1, -1, -1, -1]
 
 
-        for i in range(1):
+        for i in range(2):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_1.set_line_label(i, "Data {0}".format(i))
+                if (i % 2 == 0):
+                    self.qtgui_time_sink_x_1.set_line_label(i, "Re{{Data {0}}}".format(i/2))
+                else:
+                    self.qtgui_time_sink_x_1.set_line_label(i, "Im{{Data {0}}}".format(i/2))
             else:
                 self.qtgui_time_sink_x_1.set_line_label(i, labels[i])
             self.qtgui_time_sink_x_1.set_line_width(i, widths[i])
@@ -140,7 +143,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_1_win = sip.wrapinstance(self.qtgui_time_sink_x_1.pyqwidget(), Qt.QWidget)
         self.tabs_layout_0.addWidget(self._qtgui_time_sink_x_1_win)
-        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_f(
+        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
             1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
@@ -159,7 +162,6 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0.enable_control_panel(False)
 
 
-        self.qtgui_freq_sink_x_0.set_plot_pos_half(not True)
 
         labels = ['', '', '', '', '',
             '', '', '', '', '']
@@ -181,8 +183,8 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.tabs_layout_1.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_float*1, freq,True)
-        self.analog_sig_source_x_0 = analog.sig_source_f(sample_rate, analog.GR_SIN_WAVE, 2000, 1, 0, 0)
+        self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, freq,True)
+        self.analog_sig_source_x_0 = analog.sig_source_c(sample_rate, analog.GR_SIN_WAVE, 2000, 1, 0, 0)
 
 
 
@@ -195,7 +197,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "ECE531_Lab1a")
+        self.settings = Qt.QSettings("GNU Radio", "ECE531_Lab1b")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -219,7 +221,7 @@ class ECE531_Lab1a(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=ECE531_Lab1a, options=None):
+def main(top_block_cls=ECE531_Lab1b, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
