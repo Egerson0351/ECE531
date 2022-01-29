@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: ECE531_Lab1a
+    id: ECE531_Lab1b
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -21,7 +21,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: ''
+    title: Not titled yet
     window_size: ''
   states:
     bus_sink: false
@@ -41,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 12]
+    coordinate: [199, 19]
     rotation: 0
     state: enabled
 - name: sample_rate
@@ -62,7 +62,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [563, 27]
+    coordinate: [570, 34]
     rotation: 0
     state: enabled
 - name: analog_sig_source_x_0
@@ -84,7 +84,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 236]
+    coordinate: [39, 243]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -103,7 +103,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [272, 268]
+    coordinate: [279, 275]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_0
@@ -183,7 +183,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [568, 292]
+    coordinate: [575, 299]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -280,7 +280,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [812, 214]
+    coordinate: [819, 221]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_1
@@ -377,7 +377,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 164]
+    coordinate: [551, 171]
     rotation: 0
     state: enabled
 - name: tabs
@@ -411,7 +411,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [320, 20]
+    coordinate: [327, 27]
     rotation: 0
     state: enabled
 
