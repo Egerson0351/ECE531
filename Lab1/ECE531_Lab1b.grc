@@ -78,7 +78,7 @@ blocks:
     offset: '0'
     phase: '0'
     samp_rate: sample_rate
-    type: float
+    type: complex
     waveform: analog.GR_SIN_WAVE
   states:
     bus_sink: false
@@ -97,7 +97,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     samples_per_second: freq
-    type: float
+    type: complex
     vlen: '1'
   states:
     bus_sink: false
@@ -163,7 +163,7 @@ blocks:
     tr_level: '0.0'
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_tag: '""'
-    type: float
+    type: complex
     units: dB
     update_time: '0.10'
     width1: '1'
@@ -183,7 +183,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [575, 299]
+    coordinate: [575, 300]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -357,7 +357,7 @@ blocks:
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
-    type: float
+    type: complex
     update_time: '0.10'
     width1: '1'
     width10: '1'
