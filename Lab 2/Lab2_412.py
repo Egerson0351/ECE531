@@ -86,46 +86,23 @@ class Lab2_412(gr.top_block, Qt.QWidget):
         self._gain_range = Range(0, 100, 5, 20, 200)
         self._gain_win = RangeWidget(self._gain_range, self.set_gain, 'gain', "counter_slider", float)
         self.top_grid_layout.addWidget(self._gain_win)
-        self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
-            1024, #size
+        self.qtgui_sink_x_0 = qtgui.sink_c(
+            1024, #fftsize
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
             "", #name
-            1
+            True, #plotfreq
+            True, #plotwaterfall
+            True, #plottime
+            True #plotconst
         )
-        self.qtgui_freq_sink_x_0.set_update_time(0.10)
-        self.qtgui_freq_sink_x_0.set_y_axis(-140, 10)
-        self.qtgui_freq_sink_x_0.set_y_label('Relative Gain', 'dB')
-        self.qtgui_freq_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
-        self.qtgui_freq_sink_x_0.enable_autoscale(True)
-        self.qtgui_freq_sink_x_0.enable_grid(False)
-        self.qtgui_freq_sink_x_0.set_fft_average(0.1)
-        self.qtgui_freq_sink_x_0.enable_axis_labels(True)
-        self.qtgui_freq_sink_x_0.enable_control_panel(False)
+        self.qtgui_sink_x_0.set_update_time(1.0/10)
+        self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
 
+        self.qtgui_sink_x_0.enable_rf_freq(False)
 
-
-        labels = ['', '', '', '', '',
-            '', '', '', '', '']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ["blue", "red", "green", "black", "cyan",
-            "magenta", "yellow", "dark red", "dark green", "dark blue"]
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-
-        for i in range(1):
-            if len(labels[i]) == 0:
-                self.qtgui_freq_sink_x_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_freq_sink_x_0.set_line_label(i, labels[i])
-            self.qtgui_freq_sink_x_0.set_line_width(i, widths[i])
-            self.qtgui_freq_sink_x_0.set_line_color(i, colors[i])
-            self.qtgui_freq_sink_x_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
+        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_win)
         self.iio_pluto_source_0 = iio.pluto_source('', int(2400000000), int(samp_rate), int(20000000), 32768, True, True, True, 'manual', gain, '', True)
         self.iio_pluto_sink_0 = iio.pluto_sink('', int(2400000000), int(samp_rate), int(20000000), 32768, False, 10.0, '', True)
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, variable_qtgui_range_0, 1, 0, 0)
@@ -136,7 +113,7 @@ class Lab2_412(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_sig_source_x_0, 0), (self.iio_pluto_sink_0, 0))
-        self.connect((self.iio_pluto_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.iio_pluto_source_0, 0), (self.qtgui_sink_x_0, 0))
 
 
     def closeEvent(self, event):
@@ -159,7 +136,7 @@ class Lab2_412(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
         self.iio_pluto_sink_0.set_params(int(2400000000), int(self.samp_rate), int({bandwidth}), 10.0, '', True)
         self.iio_pluto_source_0.set_params(int(2400000000), int(self.samp_rate), int(20000000), True, True, True, 'manual', self.gain, '', True)
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
+        self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate)
 
     def get_gain(self):
         return self.gain
